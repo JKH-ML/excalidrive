@@ -13,7 +13,7 @@ import { t } from "../i18n";
 import { Card } from "./Card";
 import { Dialog } from "./Dialog";
 import { ToolButton } from "./ToolButton";
-import { exportToFileIcon, LinkIcon } from "./icons";
+import { exportToFileIcon, LinkIcon, cloudUploadIcon } from "./icons";
 
 import "./ExportDialog.scss";
 
@@ -45,7 +45,9 @@ const JSONExportModal = ({
   exportOpts: ExportOpts;
   canvas: HTMLCanvasElement;
 }) => {
-  const { onExportToBackend } = exportOpts;
+  const { onExportToBackend, onSaveToCloud } = exportOpts;
+  const [isSavingToCloud, setIsSavingToCloud] = React.useState(false);
+
   return (
     <div className="ExportDialog ExportDialog--json">
       <div className="ExportDialog-cards">
@@ -88,6 +90,38 @@ const JSONExportModal = ({
                   onCloseRequest();
                 } catch (error: any) {
                   setAppState({ errorMessage: error.message });
+                }
+              }}
+            />
+          </Card>
+        )}
+        {onSaveToCloud && (
+          <Card color="blue">
+            <div className="Card-icon">{cloudUploadIcon}</div>
+            <h2>{t("exportDialog.cloud_title")}</h2>
+            <div className="Card-details">{t("exportDialog.cloud_details")}</div>
+            <ToolButton
+              className="Card-button"
+              type="button"
+              title={t("exportDialog.cloud_button")}
+              aria-label={t("exportDialog.cloud_button")}
+              showAriaLabel={true}
+              disabled={isSavingToCloud}
+              onClick={async () => {
+                try {
+                  setIsSavingToCloud(true);
+                  trackEvent("export", "cloud", `ui (${getFrame()})`);
+                  await onSaveToCloud(elements, appState, files);
+                  setAppState({
+                    toast: { message: t("exportDialog.cloud_success") }
+                  });
+                  onCloseRequest();
+                } catch (error: any) {
+                  setAppState({
+                    errorMessage: error.message || t("exportDialog.cloud_error")
+                  });
+                } finally {
+                  setIsSavingToCloud(false);
                 }
               }}
             />

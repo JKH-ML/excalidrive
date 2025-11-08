@@ -401,6 +401,11 @@
     "link_title": "Shareable link",
     "link_details": "Export as a read-only link.",
     "link_button": "Export to Link",
+    "cloud_title": "Save to Google Cloud",
+    "cloud_details": "Save your drawing to Google Cloud Storage in the excalidraw folder.",
+    "cloud_button": "Save to Cloud",
+    "cloud_success": "Successfully saved to Google Cloud!",
+    "cloud_error": "Failed to save to Google Cloud. Please try again.",
     "excalidrawplus_description": "Save the scene to your Excalidraw+ workspace.",
     "excalidrawplus_button": "Export",
     "excalidrawplus_exportError": "Couldn't export to Excalidraw+ at this moment..."

@@ -646,6 +646,11 @@ export type ExportOpts = {
     appState: UIAppState,
     files: BinaryFiles,
   ) => void;
+  onSaveToCloud?: (
+    exportedElements: readonly NonDeletedExcalidrawElement[],
+    appState: UIAppState,
+    files: BinaryFiles,
+  ) => Promise<void>;
   renderCustomUI?: (
     exportedElements: readonly NonDeletedExcalidrawElement[],
     appState: UIAppState,
