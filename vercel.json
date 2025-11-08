@@ -1,0 +1,11 @@
+{
+  "buildCommand": "yarn --cwd ./excalidraw-app build",
+  "outputDirectory": "excalidraw-app/build",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
